@@ -18,6 +18,10 @@ let text = figlet("Hello World!!", function (err, data) {
 });
 console.log(text);
 
+app.use((req, res, next) => {
+  console.log("Middleware function");
+  next();
+})
 
 app.get('/', (req, res) => {
   res.send('First Program! In backend it is running succesfully');
