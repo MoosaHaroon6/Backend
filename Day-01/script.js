@@ -1,20 +1,55 @@
-const express = require('express');
-const app = express();
+const express = require('express'); // express js installed
+let oneLineJoke = require('one-liner-joke');  // one-liner pkg 
+let figlet = require("figlet"); // figlet(pkg) from npmjs
+
 const port = 3000;
+const app = express(); // as app
 
-app.set("view engine","ejs"); // ejs configuration
+let joke = oneLineJoke.getRandomJoke().body;
+console.log(joke);
 
-app.use((req, res, next) => {  // middleware function
-  console.log("middleware request");
+let text = figlet("Hello World!!", function (err, data) {
+  if (err) {
+    console.log("Something went wrong...");
+    console.dir(err);
+    return;
+  }
+  console.log(data);
+});
+console.log(text);
+
+app.use((req, res, next) => {
+  console.log("Middleware function");
   next();
-}) 
+})
 
 app.get('/', (req, res) => {
-  res.render("index");
+  res.send('First Program! In backend it is running succesfully');
 })
 
-app.get('/profile/:username', (req, res) => {
-  res.send(`Hey ${req.params.username}`);  // dynamic routing
+app.get('/jokes', (req, res) => {
+  res.send(`<h1>Random Jokes</h1><p>${joke}</p>`);
 })
 
-app.listen(port, console.log("Program Running"));
+app.get('/text', (req, res) => {
+  figlet.text(
+    "Moosa",
+    {
+      font: "4Max",
+      horizontalLayout: "default",
+      verticalLayout: "default",
+      width: 100,
+      whitespaceBreak: true
+    },
+    function (err, data) {
+      if (err) {
+        res.send("Something went wrong...");
+        console.dir(err);
+        return;
+      }
+      res.send(`<pre>${data}</pre>`);
+    })
+})
+
+
+app.listen(port, console.log("First Program! In backend"));
