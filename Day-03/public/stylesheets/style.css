@@ -1,0 +1,19 @@
+.main {
+    border: 1px solid gray;
+    background-color: rgb(244, 244, 244);
+    width: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.image {
+    width: 200px;
+    height: 100px;
+    border: 1px solid greenyellow;
+    box-shadow: 0 0 15px greenyellow;
+    margin-top: 10px;
+    text-align: center;
+}
