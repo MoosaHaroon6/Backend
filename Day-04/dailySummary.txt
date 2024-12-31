@@ -1,0 +1,37 @@
+<--- Installations --->
+   
+      1- Create project with express-generator command 
+         # npm i express-generator -g // -g installs globally
+
+      2- Create account on mongodb   
+
+      3- Install mongoose
+        # npm i mongoose
+
+<--- Installations --->
+
+
+
+<--- Working --->
+    
+  > Made changes on indes.js file and started the program 
+  > Created schema and model in user.js file (you can create as you want)
+
+<--- Working --->
+
+
+
+<--- Learning --->
+   
+  > mongoose.connect("mongodb://127.0.0.1:27017/Backend"); // this line connects with your db
+                    > db : > // localhost : > port > /dbName
+
+  > Create schema ,schema is a flexible blueprint that defines the structure, fields, and data types
+   of documents in a collection, often enforced optionally using Mongoose or JSON Schema for validation, 
+   in simple words it is the interface that how our document should look like.                  
+       > It takes an object
+
+  > Create model ,model takes collection name and schema object.
+     > mongoose.model(nameOfCollection,schemaName); 
+
+<--- Learning --->
