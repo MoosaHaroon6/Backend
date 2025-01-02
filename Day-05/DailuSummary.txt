@@ -1,0 +1,37 @@
+<--- Installations --->
+
+   # Install the required packages
+
+       // npm i cors (cors)
+       // npm i express (express)
+       // npm i morgan (morgan)
+
+<--- Installations --->
+
+
+
+<--- Learning --->
+
+   # What is cors & morgan ?
+      => cors and morgan are middlewares (third party),
+          
+          => Cors Helps handle Cross-Origin Resource Sharing, allowing resources to be accessed 
+             from other domains.
+
+          => Morgan is a middleware that logs HTTP requests and responses in a readable format.
+    
+   # What is fs? 
+      => fs is a built-in module in Node.js that allows you to interact with the file system.
+         where we have applied two methods 
+           => to read file 
+           => to create file
+
+    # What is path?
+      => path is a built-in module in Node.js that allows you to work with file paths and there are
+         some methods you can use with path like join, resolve, basename, extname, dirname, etc.
+         we leanred path.resolve();
+           => resolve is used to join two or more paths together to form a new path.
+                // syntax  path.resolve("dashboard","activities","cricket");
+                           // output  /dashboard/activities/cricket
+
+<--- Learning --->
