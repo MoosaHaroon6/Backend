@@ -39,5 +39,5 @@
 
 ##  Notice ##
 
-     - Two files named moosa.html & haroon.html were created through program ,they were not created intentionally. :)
+     -- Two files named moosa.html & haroon.html were created through program ,they were not created intentionally. :)
   
