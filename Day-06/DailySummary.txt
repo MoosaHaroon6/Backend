@@ -1,0 +1,47 @@
+<--- Installations --->
+
+   # Install the required packages
+
+       // npm i cors (cors)
+       // npm i express (express)
+       // npm i morgan (morgan)
+       // npm i mongoose (mongoose)
+       // npm i dotenv (dotenv)
+
+<--- Installations --->
+
+
+<--- Learning --->
+
+  Imports and Setup:
+
+      dotenv/config is used to load environment variables.
+      mongoose is imported for database operations, and express is used to create the server.
+      A User model is imported from ./models/UserSchema.js.
+      The app object is created, and the server listens on a port specified by the environment variable PORT.
+    
+  Middleware Setup:
+
+      cors() enables Cross-Origin Resource Sharing.
+      express.json() is used to parse incoming JSON requests.
+      morgan('dev') logs HTTP requests in the "dev" format.
+  
+  MongoDB Connection:
+
+      The app connects to MongoDB using the URI stored in MONGODB_URI from environment variables.
+      If the connection is successful, a success message is logged. Otherwise, an error is logged.
+  
+  Error Handling:
+
+      A global error handler catches any errors that occur during request processing and responds with a 500 status code.
+    
+  User Sign-Up Route (POST /signUp):
+
+      A route is defined to handle user sign-ups. It extracts email, password, and username from the request body, creates a new user instance, and saves it to the database.
+      On success, it logs the saved user and sends a success message. If there’s an error, it's logged to the console.
+
+  Error Handling in POST /signUp:
+
+      In the sign-up route, if the user creation fails, the error is caught and logged.
+
+<--- Learning --->
