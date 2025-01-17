@@ -7,7 +7,7 @@
        // npm i morgan (morgan - for logging HTTP requests)
        // npm i mongoose (mongoose - for database interactions)
        // npm i dotenv (dotenv - to load environment variables)
-       // npm i bcrypt (bcrypt - for hashing passwords)
+       // npm i bcrypt (bcrypt - for hashing passwords/encryption)
        // npm i jsonwebtoken (jsonwebtoken - for token generation)
 
 <--- Installations --->
