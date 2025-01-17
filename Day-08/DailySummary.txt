@@ -1,0 +1,76 @@
+<--- Installations --->
+
+   # Install the required packages
+
+       // npm i express (express - to build the server)
+       // npm i cors (cors - for cross-origin requests)
+       // npm i morgan (morgan - for logging HTTP requests)
+       // npm i mongoose (mongoose - for database interactions)
+       // npm i dotenv (dotenv - to load environment variables)
+       // npm i bcrypt (bcrypt - for hashing passwords)
+       // npm i jsonwebtoken (jsonwebtoken - for token generation)
+       // npm i nodemailer (for email verification)
+
+<--- Installations --->
+
+
+<--- Learning --->
+
+  Imports and Setup:
+
+      - `dotenv/config` is used to load environment variables.
+      - `mongoose` is imported for database operations.
+      - `express` is used to create the server.
+      - `bcrypt` is used to hash passwords for security.
+      - `jsonwebtoken` is used to create and verify JSON Web Tokens.
+      - A User model is imported from `./models/UserSchema.js`.
+      - The app object is created using `express()`, and the server listens on the port specified in the environment variable `PORT`.
+
+  Middleware Setup:
+
+      - `cors()` enables Cross-Origin Resource Sharing, allowing the server to handle requests from other origins.
+      - `express.json()` parses incoming JSON requests to JavaScript objects.
+      - `morgan('dev')` logs HTTP requests in a developer-friendly format.
+  
+  MongoDB Connection:
+
+      - The app connects to MongoDB using a URI from environment variables (`MONGODB_URI`).
+      - If the connection is successful, a success message (`<=== DB-CONNECTED ===>`) is logged. 
+      - If the connection fails, an error message (`<=== DB-CONNECTION-FAILED ===>`) is logged.
+  
+  User Registration (POST /register):
+
+      - A route to handle user registration (`/register`) extracts `username`, `email`, and `password` from the request body.
+      - The password is hashed using `bcrypt.hash` before being saved to the database.
+      - A new user is created and saved to the database using the `User` model.
+      - On success, the created user (excluding the password) is logged, and a success message is sent.
+      - If there is an error during registration, it is logged and handled appropriately.
+
+  User Login (POST /login):
+
+      - A route for user login (`/login`) verifies the user's credentials.
+      - The email is searched in the database using `User.findOne`.
+      - If the user is found, the provided password is verified using `bcrypt.compare`.
+      - If the credentials are valid:
+        - A JSON Web Token (JWT) is generated using `jsonwebtoken.sign` with the user's ID and email.
+        - The password is removed from the user object for security.
+        - The token and user details are sent in the response.
+      - If the credentials are invalid, an appropriate error message (`User not found` or `Invalid Password`) is sent.
+
+  JWT Usage:
+
+      - `jsonwebtoken.sign` creates a token containing the user's ID and email, signed with a secret key (`secret_token`).
+      - The token has an expiration time of 1 hour (`expiresIn: "1hr"`).
+      - The token can later be verified using `jsonwebtoken.verify` to validate the user’s identity.
+
+  NodeMailer:
+      - NodeMailer is a Node.js library used to send emails efficiently and reliably. It supports multiple email transport methods,
+        including SMTP, OAuth2, and third-party services like Gmail, Outlook, or custom domains.
+
+  Error Handling:
+
+      - Try-catch blocks are used to handle asynchronous errors in routes (`/register` and `/login`).
+      - Errors are logged to the console for debugging.
+      - Proper error responses (`res.send`) are sent back to the client.
+
+<--- Learning --->
