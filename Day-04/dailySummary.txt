@@ -14,7 +14,7 @@
 
 <--- Working --->
     
-  > Made changes on indes.js file and started the program 
+  > Made changes on index.js file and started the program 
   > Created schema and model in user.js file (you can create as you want)
 
 <--- Working --->
