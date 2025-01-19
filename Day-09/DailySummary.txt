@@ -1,0 +1,35 @@
+
+<--- Installations --->
+
+   # Install the required packages
+
+       // npm i express (express - to build the server)
+       // npm i cors (cors - for cross-origin requests)
+       // npm i morgan (morgan - for logging HTTP requests)
+       // npm i dotenv (dotenv - to load environment variables)
+       // npm i socket.io 
+
+<--- Installations --->
+
+
+<--- Learning --->
+
+  Imports and Setup:
+
+      - `dotenv/config` is used to load environment variables.
+      - `express` is used to create the server.
+
+  Middleware Setup:
+
+      - `cors()` enables Cross-Origin Resource Sharing, allowing the server to handle requests from other origins.
+      - `express.json()` parses incoming JSON requests to JavaScript objects.
+      - `morgan('dev')` logs HTTP requests in a developer-friendly format.
+  
+  Web Sockets :
+      - Sockets are a way to enable real-time, two-way communication between a client (e.g., a browser) and a server.
+        They allow data to be exchanged instantly without the need for continuous requests from the client.
+
+      - Sockets are essential for applications where updates need to happen instantly, such as chat applications, 
+        live notifications, stock price updates, and online gaming. 
+        
+<--- Learning --->
