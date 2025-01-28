@@ -1,0 +1,23 @@
+## Installations ##
+  
+   express.js 
+   dotenv   // for apis
+   mongoose  // for models
+   cors  // middleware
+   morgan  // middleware
+
+## Installations ##
+
+
+
+## Process ##
+
+    -- Changes --
+   // package.json => type => module
+
+  create [.env] file and store apis with their respective variable names.
+      => do not apply spaces while create environmentals variables   
+  create [config] folder and set db configurations and connect mongo db.
+  create [models] folder and schema file for Users.
+    
+## Process ##
