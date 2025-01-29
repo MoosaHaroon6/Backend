@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Update User</title>
+    <style>
+        /* Custom smooth transitions */
+        .smooth-transition {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* Custom hover effect for the button */
+        .hover-effect:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+
+<body class="w-full h-full bg-zinc-800">
+    <div class="w-full h-full p-10 flex justify-center items-center">
+        <form action="/update/<%= user._id %>" method="post" class="w-full max-w-md bg-zinc-700 p-8 rounded-lg shadow-lg smooth-transition hover:shadow-xl">
+            <h1 class="text-2xl font-bold text-white mb-8 text-center">Edit User Info</h1>
+
+            <div class="mb-6">
+                <input type="text" name="name"
+                    class="w-full p-3 bg-zinc-600 text-white placeholder-zinc-400 rounded-md outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent smooth-transition"
+                    value="<%= user.name %>"
+                    placeholder="Username" />
+            </div>
+
+            <div class="mb-6">
+                <input type="email" name="email"
+                    class="w-full p-3 bg-zinc-600 text-white placeholder-zinc-400 rounded-md outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent smooth-transition"
+                    placeholder="Email" value="<%= user.email %>" />
+            </div>
+
+            <div class="mb-8">
+                <input type="text" name="image"
+                    class="w-full p-3 bg-zinc-600 text-white placeholder-zinc-400 rounded-md outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent smooth-transition"
+                    placeholder="Image URL" value="<%= user.image %>" />
+            </div>
+
+            <button type="submit"
+                class="w-full p-3 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 smooth-transition hover-effect">
+                Update
+            </button>
+
+            <div class="mt-4 text-center">
+                <a href="/read" class="text-green-600 hover:underline hover:text-green-500 smooth-transition">See All Users</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
