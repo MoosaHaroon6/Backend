@@ -5,6 +5,7 @@
    mongoose  // for models
    cors  // middleware
    morgan  // middleware
+   ejs // template engine
 
 ## Installations ##
 
@@ -12,12 +13,6 @@
 
 ## Process ##
 
-    -- Changes --
-   // package.json => type => module
-
-  create [.env] file and store apis with their respective variable names.
-      => do not apply spaces while create environmentals variables   
-  create [config] folder and set db configurations and connect mongo db.
-  create [models] folder and schema file for Users.
+   added Edit and Update feature with real time update in DB
     
 ## Process ##
