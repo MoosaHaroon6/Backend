@@ -26,7 +26,7 @@
                             <%= user.email %>
                         </p>
                         <div class="flex gap-4">
-                            <a href="/edit"
+                            <a href="/edit/<%= user._id %>"
                                 class="text-blue-500 hover:text-blue-600 underline transition-colors duration-200">Edit</a>
                             <a href="/delete/<%= user._id %>"
                                 class="text-red-500 hover:text-red-600 underline transition-colors duration-200">Delete</a>
