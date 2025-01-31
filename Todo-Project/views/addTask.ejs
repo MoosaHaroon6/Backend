@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>Add Task</title>
+    <style>
+        @keyframes floating {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .form-card {
+            background: linear-gradient(145deg, #18181b, #1a1a1e);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .task-button {
+            background: linear-gradient(135deg, #19c764, #059669);
+            transition: all 0.3s ease;
+        }
+
+        .task-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .task-button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-zinc-900 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md space-y-6 animate-floating" style="animation: floating 6s ease-in-out infinite">
+        <div class="text-center space-y-2">
+            <h1 class="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-green-600">
+                Add Task
+            </h1>
+            <p class="text-zinc-400">Organize your life one task at a time</p>
+        </div>
+
+        <form action="/addTask" method="post" class="form-card rounded-2xl p-8 space-y-6 border border-zinc-700/50">
+            <div class="space-y-4">
+                <input type="text" name="task" placeholder="What needs to be done?" class="w-full input-glow bg-zinc-800 text-white placeholder-zinc-500 px-6 py-4 rounded-xl
+                           border border-zinc-700 focus:border-blue-500 focus:outline-none
+                           transition-all duration-300 text-lg" required>
+                <button type="submit" class="task-button w-full py-3.5 text-lg font-semibold text-white rounded-xl
+                           flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Add Task
+                </button>
+            </div>
+
+            <div class="text-center pt-4 border-t border-zinc-700/50">
+                <a href="/viewTask"
+                    class="inline-block group relative text-yellow-400/90 hover:text-yellow-300 transition-colors">
+                    <span class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z"
+                                clip-rule="evenodd" />
+                        </svg>
+                        View All Tasks
+                    </span>
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-px bg-yellow-400 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

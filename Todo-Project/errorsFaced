@@ -1,0 +1,10 @@
+Error: 
+res.render("editTask");
+Corrected :
+res.render("editTask", { task }); // forget to pass task object to the view
+ 
+
+Error:
+app.post("/updateTask", async (req, res) => {})  
+Corrected :
+app.post("/updateTask/:id", async (req, res) => {}) // forget to pass id 

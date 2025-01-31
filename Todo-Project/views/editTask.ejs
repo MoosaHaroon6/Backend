@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>Edit Task</title>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .form-container {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .input-glow:focus {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-zinc-900 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md space-y-8 form-container">
+        <!-- Header -->
+        <div class="text-center space-y-2">
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-green-400 to-green-600 bg-clip-text text-transparent">
+                Edit Task
+            </h1>
+            <p class="text-zinc-400">Refine and update your task</p>
+        </div>
+
+        <form action="/updateTask/<%= task._id %>" method="post" 
+              class="bg-zinc-800/50 backdrop-blur-sm rounded-xl p-6 space-y-6 border border-zinc-700/30">
+            <div class="space-y-4">
+                <input 
+                    type="text" 
+                    name="task" 
+                    value="<%= task.task %>"
+                    placeholder="Edit your task..."
+                    class="input-glow w-full px-5 py-3.5 bg-zinc-700/50 text-white placeholder-zinc-400 rounded-lg
+                           border border-zinc-600 focus:border-blue-500 focus:outline-none
+                           transition-all duration-300 text-lg"
+                    required
+                >
+                <div class="flex gap-4">
+                    <button 
+                        type="submit"
+                        class="flex-1 py-3.5 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg
+                               transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg
+                               flex items-center justify-center gap-2"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        Update Task
+                    </button>
+                    <a href="/viewTask" 
+                       class="flex-1 py-3.5 bg-zinc-600 hover:bg-zinc-700 text-white font-medium rounded-lg
+                             transition-all duration-300 hover:translate-y-[-2px] hover:shadow-lg
+                             flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                        Cancel
+                    </a>
+                </div>
+            </div>
+
+           
+        </form>
+    </div>
+</body>
+
+</html>         
