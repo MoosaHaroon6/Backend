@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>Login</title>
+</head>
+
+<body class="bg-zinc-900 text-white min-h-screen flex items-center justify-center p-4">
+    <form action="/login" method="post" class="bg-zinc-800 p-8 rounded-xl shadow-xl w-full max-w-md space-y-6">
+        <h1 class="text-2xl font-bold text-center">Login</h1>
+
+        <div class="space-y-5">
+            <div>
+                <label class="block text-sm font-medium mb-2" for="email">Email</label>
+                <input type="email" name="email" required placeholder="Enter your email" autocomplete="email" class="w-full px-4 py-3 bg-zinc-700/50 border border-zinc-600 rounded-lg 
+                           focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30
+                           placeholder-zinc-400 transition-colors">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium mb-2" for="password">Password</label>
+                <input type="password" name="password" required placeholder="Create password"
+                    autocomplete="new-password" class="w-full px-4 py-3 bg-zinc-700/50 border border-zinc-600 rounded-lg 
+                           focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/30
+                           placeholder-zinc-400 transition-colors">
+            </div>
+
+            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-4 rounded-lg
+                   focus:outline-none focus:ring-4 focus:ring-blue-500/30 transition-all">
+                Login
+            </button>
+
+            <p class="text-center text-zinc-400 text-sm">
+                Don't have an account?
+                <a href="/register" class="text-blue-400 hover:text-blue-300 transition-colors">Register</a>
+            </p>
+    </form>
+</body>
+
+</html>
