@@ -41,13 +41,64 @@ app.get("/login", (req, res) => {
 })
 
 app.get("/logout", (req, res) => {
-    res.cookie("token", '');
+    res.clearCookie("token", '');
     res.redirect("/login");
 })
 
-app.get("/dashboard", isLoggedIn, (req, res) => {
-    res.send("Dashboard");
+app.get("/dashboard", isLoggedIn, async (req, res) => {
+    try {
+        // find user and find posts
+        let user = await User.findOne({ email: req.user.email }).populate("posts")
+        res.render("dashboard", { user });
+    } catch {
+        console.log("Error");
+        res.status(500).json({ msg: "Server Error", success: false });
+    }
 });
+
+app.get("/like/:id", isLoggedIn, async (req, res) => {
+    try {
+        // find posts and userid
+        let post = await Post.findById(req.params.id).populate("user");
+        const userId = req.user.userId;
+
+        // check if user has liked the post
+        if (!post) {
+            return res.status(404).json({ msg: "Post not found", success: false });
+        }
+        // check if user has liked the post
+        if (!userId) {
+            return res.status(400).json({ msg: "Invalid user", success: false });
+        }
+
+        // check if post has already been liked by the user
+        post.likes = post.likes.filter(like => like !== null);
+
+        // update post likes array based on user liking or unliking the post
+        if (!post.likes.includes(userId.toString())) {
+            post.likes.push(userId);
+        } else {
+            post.likes = post.likes.filter(like => like.toString() !== userId.toString());
+        }
+
+        // save post
+        await post.save();
+        res.redirect("/dashboard");
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ msg: "Server Error", success: false });
+    }
+});
+
+app.get("/edit/:id", async (req, res) => {
+    try {
+        const post = Post.findOne({ _id: req.params.id }).populate("user");
+        res.render("editPost", { post });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ msg: "Server Error", success: false });
+    }
+})
 
 // POST REQUESTS
 app.post("/register", async (req, res) => {
@@ -98,7 +149,7 @@ app.post("/login", async (req, res) => {
         res.cookie("token", token, { httpOnly: true });
 
         // Send response
-        res.status(200).json({ msg: "User Logged In successfully", success: true });
+        // res.status(200).json({ msg: "User Logged In successfully", success: true });
 
         // redirect to dashboard
         res.redirect("/dashboard");
@@ -107,5 +158,29 @@ app.post("/login", async (req, res) => {
         res.status(500).json({ msg: "Server Error", success: false });
     }
 })
+app.post("/createPost", isLoggedIn, async (req, res) => {
+    try {
+        // Find user
+        const user = await User.findOne({ email: req.user.email });
+        const { content } = req.body;
+
+        // Create new post and save it to the database
+        const post = await Post.create({
+            user: user._id,
+            content,
+        });
+
+        // Add post to user's posts array
+        user.posts.push(post._id);
+        await user.save();
+
+        console.log("New Post Created:", post);
+        res.redirect("/dashboard");
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ msg: "Server Error", success: false });
+    }
+});
+
 
 app.listen(PORT);
