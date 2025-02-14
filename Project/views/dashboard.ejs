@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,78 +7,92 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <title>Dashboard</title>
 </head>
-
 <body class="bg-zinc-900 text-white h-full flex flex-col">
-
-    <!-- Nav-Bar -->
-    <nav class="bg-zinc-800 shadow-lg w-full py-4">
-        <div class="max-w-2xl mx-auto px-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Hey, <%= user.username %> 👋</h1>
-            <a href="/logout" class="text-blue-500 hover:text-blue-400 transition duration-200">
-                Logout
-            </a>
+    <!-- Enhanced Navigation Bar -->
+    <nav class="bg-zinc-800 shadow-xl py-4 sticky top-0 z-10">
+        <div class="max-w-3xl mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold truncate">Hey, <%= user.username %> 👋</h1>
+                <a href="/logout" class="text-blue-400 hover:text-blue-300 transition-colors duration-200">
+                    Logout <i class="fas fa-sign-out-alt ml-1"></i>
+                </a>
+            </div>
         </div>
     </nav>
-    <!-- Nav-Bar -->
 
-    <!-- Main Content Area -->
+    <!-- Main Content Container -->
     <main class="flex-1">
-        <div class="max-w-2xl mx-auto h-full p-4 flex flex-col gap-6">
-            <!-- Create Post Section -->
-            <div>
-                <p class="text-zinc-300 mb-4">Create Your Posts Here</p>
-                <form action="/createPost" method="post" class="flex-1 flex flex-col gap-4">
-                    <textarea name="content" rows="5" class="w-full flex-1 p-3 bg-zinc-700 text-white rounded-lg resize-none 
-                               focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Write something..."
-                        required></textarea>
-                    <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg 
-                               hover:bg-blue-700 focus:outline-none focus:ring-2 
-                               focus:ring-blue-500 transition duration-200">
-                        Create New Post
+        <div class="max-w-3xl mx-auto px-4 py-8">
+            <!-- Post Creation Card -->
+            <div class="bg-zinc-800 rounded-xl p-6 mb-8 shadow-lg">
+                <h2 class="text-zinc-300 text-lg font-medium mb-4">Create New Post</h2>
+                <form action="/createPost" method="post" class="space-y-4">
+                    <textarea name="content" rows="4" 
+                        class="w-full bg-zinc-700 rounded-lg p-4 text-white placeholder-zinc-400 
+                               focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+                        placeholder="What's on your mind?" required></textarea>
+                    <button type="submit" 
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-lg
+                               transition-all duration-200 font-medium flex items-center justify-center">
+                        <i class="fas fa-paper-plane mr-2"></i> Publish Post
                     </button>
                 </form>
             </div>
 
-            <!-- Posts Section -->
-            <div class="posts space-y-6">
-                <% if (user.posts && user.posts.length> 0) { %>
-                    <% user.posts.forEach((post)=> { %>
-                        <div class="bg-zinc-800 p-6 rounded-lg shadow-lg">
-                            <div class="flex items-center gap-3 mb-4">
-                                <div class="w-10 h-10 bg-rose-500 rounded-full flex items-center justify-center">
-                                    <span class="text-lg font-bold">
-                                        <%= user.username.charAt(0).toUpperCase() %>
-                                    </span>
+            <!-- Posts Feed -->
+            <div class="space-y-6">
+                <% if (user.posts && user.posts.length > 0) { %>
+                    <% user.posts.forEach((post) => { %>
+                        <article class="bg-zinc-800 rounded-xl p-6 shadow-lg">
+                            <!-- Author Header -->
+                            <div class="flex items-start gap-4 mb-4">
+                                <div class="flex-shrink-0">
+                                    <div class="w-10 h-10 bg-rose-500 rounded-full flex items-center justify-center">
+                                        <span class="font-bold text-white"><%= user.username.charAt(0).toUpperCase() %></span>
+                                    </div>
                                 </div>
-                                <h3 class="text-lg font-semibold">@<%= user.username %>
-                                </h3>
+                                <div class="flex-1">
+                                    <div class="flex items-baseline flex-wrap gap-2">
+                                        <h3 class="font-semibold">@<%= user.username %></h3>
+                                        <span class="text-zinc-400 text-sm">•</span>
+                                        <time class="text-zinc-400 text-sm">
+                                            <%= post.date.toLocaleDateString() %> 
+                                            at <%= post.date.toLocaleTimeString() %>
+                                        </time>
+                                    </div>
+                                    <div class="text-sm text-zinc-300 mt-1">
+                                        <i class="fas fa-heart mr-1"></i><%= post.likes.length %> likes
+                                    </div>
+                                </div>
                             </div>
-                            <p class="text-zinc-300 mb-4">
-                                <%= post.content %>
-                            </p>
-                            <small class="inline-block text-zinc-400 mb-4">
-                                <%= post.likes.length %> Likes
-                            </small>
-                            <div class="flex gap-4">
-                                <a href="/like/<%= post._id %>"
-                                    class="text-blue-500 hover:text-blue-400 transition duration-200">
-                                    <i class="fas fa-thumbs-up"></i>
-                                    <%= !post.likes.indexOf(user._id) ? "Unlike" : "Like" %>
-                                </a>
 
-                                <a href="/edit/<%= post._id %>"
-                                    class="text-blue-500 hover:text-blue-400 transition duration-200">
+                            <!-- Post Content -->
+                            <p class="text-zinc-200 mb-6 whitespace-pre-wrap"><%= post.content %></p>
+
+                            <!-- Action Buttons -->
+                            <div class="flex flex-wrap gap-4 pt-4 border-t border-zinc-700">
+                                <a href="/like/<%= post._id %>" class="action-btn text-blue-400 hover:text-blue-300">
+                                    <i class="fas fa-thumbs-up"></i>
+                                    <%= post.likes.includes(user._id) ? "Unlike" : "Like" %>
+                                </a>
+                                <a href="/edit/<%= post._id %>" class="action-btn text-emerald-400 hover:text-emerald-300">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
+                                <a href="/delete/<%= post._id %>" class="action-btn text-rose-400 hover:text-rose-300">
+                                    <i class="fas fa-trash"></i> Delete
+                                </a>
                             </div>
-                        </div>
-                        <% }) %>
-                            <% } else { %>
-                                <p class="text-zinc-400 text-center">No posts yet. Create your first post above!</p>
-                                <% } %>
+                        </article>
+                    <% }) %>
+                <% } else { %>
+                    <div class="text-center py-12 rounded-xl bg-zinc-800">
+                        <p class="text-zinc-400 text-lg">
+                            <i class="fas fa-feather-alt mr-2"></i>Your first post awaits!
+                        </p>
+                    </div>
+                <% } %>
             </div>
         </div>
     </main>
 </body>
-
 </html>
