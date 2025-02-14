@@ -92,10 +92,21 @@ app.get("/like/:id", isLoggedIn, async (req, res) => {
 
 app.get("/edit/:id", async (req, res) => {
     try {
-        const post = Post.findOne({ _id: req.params.id }).populate("user");
+        const post = await Post.findOne({ _id: req.params.id }).populate("user");
         res.render("editPost", { post });
     } catch (err) {
         console.error(err);
+        res.status(500).json({ msg: "Server Error", success: false });
+    }
+});
+
+app.get("/delete/:id", async (req, res) => {
+    try {
+        const post = await Post.findByIdAndDelete({ _id: req.params.id });
+        res.redirect("/dashboard");
+    }
+    catch (error) {
+        console.error("Error:", error);
         res.status(500).json({ msg: "Server Error", success: false });
     }
 })
@@ -122,8 +133,8 @@ app.post("/register", async (req, res) => {
         const token = jwt.sign({ email, userId: newUser._id }, SECRET_TOKEN);
         // set cookie
         res.cookie("token", token); // set token in cookie
-        res.json({ msg: "User registered successfully.", success: true });
-
+        // res.json({ msg: "User registered successfully.", success: true });
+        res.redirect("/dashboard");
     } catch (error) {
         console.log("Error", error);
         res.status(500).json({ msg: "Server Error", success: false });
@@ -158,6 +169,7 @@ app.post("/login", async (req, res) => {
         res.status(500).json({ msg: "Server Error", success: false });
     }
 })
+
 app.post("/createPost", isLoggedIn, async (req, res) => {
     try {
         // Find user
@@ -182,5 +194,20 @@ app.post("/createPost", isLoggedIn, async (req, res) => {
     }
 });
 
+app.post("/update/:id", isLoggedIn, async (req, res) => {
+    try {
+        // Find post and update its content
+        const post = await Post.findOneAndUpdate(
+            { _id: req.params.id },
+            { content: req.body.content },
+            { new: true }
+        );
+
+        res.redirect("/dashboard");
+    } catch (error) {
+        console.error("Error:", error);
+        res.status(500).json({ msg: "Server Error", success: false });
+    }
+})
 
 app.listen(PORT);
