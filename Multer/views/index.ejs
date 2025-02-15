@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <title>MULTER</title>
+</head>
+
+<body class="bg-zinc-900 text-white h-full flex flex-col">
+    <form action="/testUpload" autocomplete="off" method="post" enctype="multipart/form-data"
+        class="max-w-md mx-auto p-8 rounded-2xl shadow-2xl space-y-6 bg-zinc-800 mt-auto mb-auto">
+        <div class="space-y-2 text-center">
+            <h2 class="text-3xl font-bold text-white">Upload Your File</h2>
+            <p class="text-zinc-300">Supported formats: PNG, JPG, PDF</p>
+        </div>
+
+        <div class="flex items-center justify-center w-full">
+            <label
+                class="flex flex-col w-full h-48 border-4 border-dashed border-zinc-600 hover:border-zinc-500 transition-all rounded-2xl cursor-pointer hover:bg-zinc-700/50 group">
+                <div class="flex flex-col items-center justify-center pt-10 pb-7">
+                    <svg class="w-12 h-12 text-zinc-400 mb-4 group-hover:scale-110 transition-transform" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                    </svg>
+                    <p class="text-lg text-zinc-200 font-medium">Drag & drop files</p>
+                    <p class="text-sm text-zinc-400 mt-2">or click to browse</p>
+                </div>
+                <input type="file" name="file" class="hidden" />
+            </label>
+        </div>
+
+        <button type="submit"
+            class="w-full flex items-center justify-center space-x-2 bg-zinc-700 hover:bg-zinc-600 transition-all text-white py-4 px-6 rounded-xl font-bold uppercase tracking-wide text-sm transform hover:scale-[1.02] shadow-lg">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+            </svg>
+            <span>Upload File</span>
+        </button>
+    </form>
+</body>
+
+</html>
