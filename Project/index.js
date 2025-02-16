@@ -4,18 +4,19 @@ import logger from 'morgan';
 import bcryptjs from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
+import path from 'path';
 // local imports
 import connectDB from './config/dbConfig.js';
 import User from './models/user.js'
 import Post from './models/post.js'
 import 'dotenv/config';
 import isLoggedIn from './middlewares/middlewares.js';
+import upload from './config/multerConfig.js';
 
 
 const app = express();
 const { PORT, SECRET_TOKEN } = process.env;
 connectDB(); // db required
-
 
 // view engine setup
 app.set("view engine", "ejs");
@@ -26,7 +27,8 @@ app.use(logger('dev'));
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded());
-
+// app.use(express.static(path.join(process.cwd(), "public")));
+app.use('/uploads', express.static(path.join(process.cwd(), 'public/images/uploads')));
 
 
 // routes
@@ -110,6 +112,10 @@ app.get("/delete/:id", async (req, res) => {
         res.status(500).json({ msg: "Server Error", success: false });
     }
 })
+
+app.get("/dashboard/profileUpload", (req, res) => {
+    res.render("profileUpload");
+});
 
 // POST REQUESTS
 app.post("/register", async (req, res) => {
@@ -209,5 +215,24 @@ app.post("/update/:id", isLoggedIn, async (req, res) => {
         res.status(500).json({ msg: "Server Error", success: false });
     }
 })
+
+app.post("/dashboard/profileUpload", isLoggedIn, upload.single("image"), async (req, res) => {
+    try {
+        let user = await User.findOne({ email: req.user.email });
+
+        if (!req.file) {
+            return res.status(400).send("No file uploaded.");
+        }
+
+        // user.profilePic = req.file.filename;
+        user.profilePic = `/images/uploads/${req.file.filename}`;
+        await user.save();
+
+        res.redirect("/dashboard");
+    } catch (error) {
+        console.error("Error uploading profile picture:", error);
+        res.status(500).send("Server error");
+    }
+});
 
 app.listen(PORT);
